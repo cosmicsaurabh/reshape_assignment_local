@@ -46,9 +46,11 @@ export const useUserData = () => {
     } catch (err) {
       if (axios.isCancel(err)) {
         console.log('Request canceled', err.message);
-      } else {
+      } else if (err.response) {
+        setError(err.response.data.error);
+    } else {
         setError('Error fetching users. Please try again later.');
-      }
+    }
     }
     setLoading(false);
   };
